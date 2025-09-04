@@ -29,11 +29,11 @@ touch "$BASE_PATH/domains/dtos/$FILE_NAME_LOWER.dto.ts"
 touch "$BASE_PATH/domains/schemas/$FILE_NAME_LOWER.schema.ts"
 touch "$BASE_PATH/interfaces/services/$FILE_NAME_LOWER.iservice.ts"
 touch "$BASE_PATH/interfaces/repositories/$FILE_NAME_LOWER.irepository.ts"
-touch "$BASE_PATH/modules/base/controllers/$FILE_NAME_LOWER.controller.ts"
-touch "$BASE_PATH/modules/base/implementation/services/$FILE_NAME_LOWER.service.ts"
-touch "$BASE_PATH/modules/base/implementation/repositories/$FILE_NAME_LOWER.repository.ts"
-touch "$BASE_PATH/modules/base/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
-touch "$BASE_PATH/modules/base/modules/$FILE_NAME_LOWER.module.ts"
+touch "$BASE_PATH/modules/controllers/$FILE_NAME_LOWER.controller.ts"
+touch "$BASE_PATH/modules/implementation/services/$FILE_NAME_LOWER.service.ts"
+touch "$BASE_PATH/modules/implementation/repositories/$FILE_NAME_LOWER.repository.ts"
+touch "$BASE_PATH/modules/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
+touch "$BASE_PATH/modules/$FILE_NAME_LOWER.module.ts"
 
 # Generate base content for each file
 echo "import { ApiProperty } from '@nestjs/swagger';
@@ -111,10 +111,10 @@ export class ${FILE_NAME_PASCAL}Mapper {
   toEntity(doc: ${FILE_NAME_PASCAL}Document): ${FILE_NAME_PASCAL}Entity {
     return new ${FILE_NAME_PASCAL}Entity(doc._id);
   }
-}" > "$BASE_PATH/modules/base/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
+}" > "$BASE_PATH/modules/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
 
 echo "import { Injectable } from '@nestjs/common';
-import { I${FILE_NAME_PASCAL}Repository } from '../../../../interfaces/repositories/${FILE_NAME_LOWER}.irepository';
+import { I${FILE_NAME_PASCAL}Repository } from '../../../interfaces/repositories/${FILE_NAME_LOWER}.irepository';
 import { ${FILE_NAME_PASCAL}Mapper } from '../mapper/${FILE_NAME_LOWER}.mapper';
 import { ${FILE_NAME_PASCAL}, ${FILE_NAME_PASCAL}Document } from '@features/${FEATURE_NAME_LOWER}/domains/schemas/${FILE_NAME_LOWER}.schema';
 import { Model } from 'mongoose';
@@ -157,10 +157,10 @@ export class ${FILE_NAME_PASCAL}Repository implements I${FILE_NAME_PASCAL}Reposi
     const result = await this.${FILE_NAME_LOWER}Model.findByIdAndDelete(id).exec();
     return !!result;
   }
-}" > "$BASE_PATH/modules/base/implementation/repositories/$FILE_NAME_LOWER.repository.ts"
+}" > "$BASE_PATH/modules/implementation/repositories/$FILE_NAME_LOWER.repository.ts"
 
 echo "import { Inject, Injectable } from '@nestjs/common';
-import { I${FILE_NAME_PASCAL}Service } from '../../../../interfaces/services/${FILE_NAME_LOWER}.iservice';
+import { I${FILE_NAME_PASCAL}Service } from '../../../interfaces/services/${FILE_NAME_LOWER}.iservice';
 import { I${FILE_NAME_PASCAL}Repository } from '@features/${FEATURE_NAME_LOWER}/interfaces/repositories/${FILE_NAME_LOWER}.irepository';
 import { Create${FILE_NAME_PASCAL}Dto, Update${FILE_NAME_PASCAL}Dto } from '@features/${FEATURE_NAME_LOWER}/domains/dtos/${FILE_NAME_LOWER}.dto';
 import { ${FILE_NAME_PASCAL}Entity } from '@features/${FEATURE_NAME_LOWER}/domains/entities/${FILE_NAME_LOWER}.entity';
@@ -191,7 +191,7 @@ export class ${FILE_NAME_PASCAL}Service implements I${FILE_NAME_PASCAL}Service {
   async delete(id: string): Promise<boolean> {
     return this.${FILE_NAME_LOWER}Repository.delete(id);
   }
-}" > "$BASE_PATH/modules/base/implementation/services/$FILE_NAME_LOWER.service.ts"
+}" > "$BASE_PATH/modules/implementation/services/$FILE_NAME_LOWER.service.ts"
 
 echo "import { Create${FILE_NAME_PASCAL}Dto, Update${FILE_NAME_PASCAL}Dto } from '@features/${FEATURE_NAME_LOWER}/domains/dtos/${FILE_NAME_LOWER}.dto';
 import { ${FILE_NAME_PASCAL}Entity } from '@features/${FEATURE_NAME_LOWER}/domains/entities/${FILE_NAME_LOWER}.entity';
@@ -312,13 +312,13 @@ export class ${FILE_NAME_PASCAL}Controller {
   async delete(@Param('id') id: string) {
     return this.${FILE_NAME_LOWER}Service.delete(id);
   }
-}" > "$BASE_PATH/modules/base/controllers/$FILE_NAME_LOWER.controller.ts"
+}" > "$BASE_PATH/modules/controllers/$FILE_NAME_LOWER.controller.ts"
 
 echo "import { Module } from '@nestjs/common';
-import { ${FILE_NAME_PASCAL}Controller } from '../controllers/${FILE_NAME_LOWER}.controller';
-import { ${FILE_NAME_PASCAL}Service } from '../implementation/services/${FILE_NAME_LOWER}.service';
-import { ${FILE_NAME_PASCAL}Repository } from '../implementation/repositories/${FILE_NAME_LOWER}.repository';
-import { ${FILE_NAME_PASCAL}Mapper } from '../implementation/mapper/${FILE_NAME_LOWER}.mapper';
+import { ${FILE_NAME_PASCAL}Controller } from './controllers/${FILE_NAME_LOWER}.controller';
+import { ${FILE_NAME_PASCAL}Service } from './implementation/services/${FILE_NAME_LOWER}.service';
+import { ${FILE_NAME_PASCAL}Repository } from './implementation/repositories/${FILE_NAME_LOWER}.repository';
+import { ${FILE_NAME_PASCAL}Mapper } from './implementation/mapper/${FILE_NAME_LOWER}.mapper';
 import { ${FILE_NAME_PASCAL}, ${FILE_NAME_PASCAL}Schema } from '@features/${FEATURE_NAME_LOWER}/domains/schemas/${FILE_NAME_LOWER}.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -340,6 +340,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   exports: ['I${FILE_NAME_PASCAL}Service'],
 })
-export class ${FILE_NAME_PASCAL}BaseModule {}" > "$BASE_PATH/modules/base/modules/$FILE_NAME_LOWER.module.ts"
+export class ${FILE_NAME_PASCAL}BaseModule {}" > "$BASE_PATH/modules/$FILE_NAME_LOWER.module.ts"
 
 echo "Files created successfully: $FILE_NAME_PASCAL"
