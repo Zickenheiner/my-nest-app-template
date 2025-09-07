@@ -32,7 +32,7 @@ touch "$BASE_PATH/interfaces/repositories/$FILE_NAME_LOWER.irepository.ts"
 touch "$BASE_PATH/modules/controllers/$FILE_NAME_LOWER.controller.ts"
 touch "$BASE_PATH/modules/implementation/services/$FILE_NAME_LOWER.service.ts"
 touch "$BASE_PATH/modules/implementation/repositories/$FILE_NAME_LOWER.repository.ts"
-touch "$BASE_PATH/modules/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
+touch "$BASE_PATH/modules/implementation/mappers/$FILE_NAME_LOWER.mapper.ts"
 touch "$BASE_PATH/modules/$FILE_NAME_LOWER.module.ts"
 
 # Generate base content for each file
@@ -111,11 +111,11 @@ export class ${FILE_NAME_PASCAL}Mapper {
   toEntity(doc: ${FILE_NAME_PASCAL}Document): ${FILE_NAME_PASCAL}Entity {
     return new ${FILE_NAME_PASCAL}Entity(doc._id);
   }
-}" > "$BASE_PATH/modules/implementation/mapper/$FILE_NAME_LOWER.mapper.ts"
+}" > "$BASE_PATH/modules/implementation/mappers/$FILE_NAME_LOWER.mapper.ts"
 
 echo "import { Injectable } from '@nestjs/common';
 import { I${FILE_NAME_PASCAL}Repository } from '../../../interfaces/repositories/${FILE_NAME_LOWER}.irepository';
-import { ${FILE_NAME_PASCAL}Mapper } from '../mapper/${FILE_NAME_LOWER}.mapper';
+import { ${FILE_NAME_PASCAL}Mapper } from '../mappers/${FILE_NAME_LOWER}.mapper';
 import { ${FILE_NAME_PASCAL}, ${FILE_NAME_PASCAL}Document } from '@features/${FEATURE_NAME_LOWER}/domains/schemas/${FILE_NAME_LOWER}.schema';
 import { Model } from 'mongoose';
 import { Create${FILE_NAME_PASCAL}Dto, Update${FILE_NAME_PASCAL}Dto } from '@features/${FEATURE_NAME_LOWER}/domains/dtos/${FILE_NAME_LOWER}.dto';
@@ -318,7 +318,7 @@ echo "import { Module } from '@nestjs/common';
 import { ${FILE_NAME_PASCAL}Controller } from './controllers/${FILE_NAME_LOWER}.controller';
 import { ${FILE_NAME_PASCAL}Service } from './implementation/services/${FILE_NAME_LOWER}.service';
 import { ${FILE_NAME_PASCAL}Repository } from './implementation/repositories/${FILE_NAME_LOWER}.repository';
-import { ${FILE_NAME_PASCAL}Mapper } from './implementation/mapper/${FILE_NAME_LOWER}.mapper';
+import { ${FILE_NAME_PASCAL}Mapper } from './implementation/mappers/${FILE_NAME_LOWER}.mapper';
 import { ${FILE_NAME_PASCAL}, ${FILE_NAME_PASCAL}Schema } from '@features/${FEATURE_NAME_LOWER}/domains/schemas/${FILE_NAME_LOWER}.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 

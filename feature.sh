@@ -24,7 +24,7 @@ mkdir -p "$BASE_PATH/interfaces/repositories"
 mkdir -p "$BASE_PATH/modules/controllers"
 mkdir -p "$BASE_PATH/modules/implementation/services"
 mkdir -p "$BASE_PATH/modules/implementation/repositories"
-mkdir -p "$BASE_PATH/modules/implementation/mapper"
+mkdir -p "$BASE_PATH/modules/implementation/mappers"
 mkdir -p "$BASE_PATH/utils"
 
 # Create feature module file
